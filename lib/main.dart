@@ -26,7 +26,8 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         Provider.value(value: deps.movieRepository),
-        ChangeNotifierProvider(create: (_) => AuthProvider(deps.authRepository)),
+        ChangeNotifierProvider(
+            create: (_) => AuthProvider(deps.authRepository)),
       ],
       child: MaterialApp(
         onGenerateTitle: (context) => AppLocalizations.of(context).appTitle,
@@ -55,7 +56,8 @@ class _RootRouter extends StatelessWidget {
   Widget build(BuildContext context) {
     final status = context.watch<AuthProvider>().status;
     return switch (status) {
-      AuthStatus.unknown => const Scaffold(body: Center(child: CircularProgressIndicator())),
+      AuthStatus.unknown =>
+        const Scaffold(body: Center(child: CircularProgressIndicator())),
       AuthStatus.unauthenticated => const LoginScreen(),
       AuthStatus.authenticated => const HomeScreen(),
     };

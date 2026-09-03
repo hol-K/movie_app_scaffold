@@ -22,7 +22,8 @@ void main() {
   setUp(() {
     remote = MockAuthRemoteDataSource();
     local = MockAuthLocalDataSource();
-    repository = AuthRepositoryImpl(remoteDataSource: remote, localDataSource: local);
+    repository =
+        AuthRepositoryImpl(remoteDataSource: remote, localDataSource: local);
 
     // Nécessaire à mocktail dès qu'un modèle custom est passé à un `any()`
     // dans un `when`/`verify` (pas utilisé dans ce fichier, mais bonne

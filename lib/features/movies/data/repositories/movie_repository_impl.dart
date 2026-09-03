@@ -18,7 +18,8 @@ class MovieRepositoryImpl implements MovieRepository {
   });
 
   @override
-  Future<Either<Failure, MovieListResult>> getMovies(MovieCategory category) async {
+  Future<Either<Failure, MovieListResult>> getMovies(
+      MovieCategory category) async {
     final connected = await networkInfo.isConnected;
 
     // --- En ligne : on va chercher les données fraîches sur TMDB. ---

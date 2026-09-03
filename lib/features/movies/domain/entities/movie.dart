@@ -21,5 +21,6 @@ class Movie extends Equatable {
       posterPath == null ? '' : 'https://image.tmdb.org/t/p/w500$posterPath';
 
   @override
-  List<Object?> get props => [id, title, overview, posterPath, voteAverage, releaseDate];
+  List<Object?> get props =>
+      [id, title, overview, posterPath, voteAverage, releaseDate];
 }

@@ -42,7 +42,8 @@ void main() {
     );
   });
 
-  test('en ligne : va chercher les données distantes et met à jour le cache', () async {
+  test('en ligne : va chercher les données distantes et met à jour le cache',
+      () async {
     when(() => networkInfo.isConnected).thenAnswer((_) async => true);
     when(() => remote.getMovies(category)).thenAnswer((_) async => [movie]);
     when(() => local.cacheMovies(category, [movie])).thenAnswer((_) async {});
@@ -60,9 +61,12 @@ void main() {
     verify(() => local.cacheMovies(category, [movie])).called(1);
   });
 
-  test('hors-ligne avec cache disponible : sert le cache et marque isFromCache=true', () async {
+  test(
+      'hors-ligne avec cache disponible : sert le cache et marque isFromCache=true',
+      () async {
     when(() => networkInfo.isConnected).thenAnswer((_) async => false);
-    when(() => local.getCachedMovies(category)).thenAnswer((_) async => [movie]);
+    when(() => local.getCachedMovies(category))
+        .thenAnswer((_) async => [movie]);
 
     final result = await repository.getMovies(category);
 
@@ -90,10 +94,12 @@ void main() {
     );
   });
 
-  test('en ligne mais erreur serveur avec cache dispo : retombe sur le cache', () async {
+  test('en ligne mais erreur serveur avec cache dispo : retombe sur le cache',
+      () async {
     when(() => networkInfo.isConnected).thenAnswer((_) async => true);
     when(() => remote.getMovies(category)).thenThrow(ServerException('500'));
-    when(() => local.getCachedMovies(category)).thenAnswer((_) async => [movie]);
+    when(() => local.getCachedMovies(category))
+        .thenAnswer((_) async => [movie]);
 
     final result = await repository.getMovies(category);
 

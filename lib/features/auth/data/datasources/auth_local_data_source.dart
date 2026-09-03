@@ -26,7 +26,8 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
     required String accessToken,
     required String refreshToken,
   }) async {
-    await tokenStorage.saveTokens(accessToken: accessToken, refreshToken: refreshToken);
+    await tokenStorage.saveTokens(
+        accessToken: accessToken, refreshToken: refreshToken);
     _cachedUser = user;
   }
 

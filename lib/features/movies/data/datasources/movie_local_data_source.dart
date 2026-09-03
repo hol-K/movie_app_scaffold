@@ -18,10 +18,12 @@ class MovieLocalDataSourceImpl implements MovieLocalDataSource {
         MovieCategory.topRated => HiveBoxes.topRated,
       };
 
-  Box<String> _box(MovieCategory category) => Hive.box<String>(_boxNameFor(category));
+  Box<String> _box(MovieCategory category) =>
+      Hive.box<String>(_boxNameFor(category));
 
   @override
-  Future<void> cacheMovies(MovieCategory category, List<MovieModel> movies) async {
+  Future<void> cacheMovies(
+      MovieCategory category, List<MovieModel> movies) async {
     try {
       final jsonList = movies.map((m) => m.toJson()).toList();
       await _box(category).put('data', jsonEncode(jsonList));

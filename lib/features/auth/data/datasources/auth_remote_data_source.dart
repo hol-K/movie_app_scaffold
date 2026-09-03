@@ -8,12 +8,16 @@ class AuthResult {
   final UserModel user;
   final String accessToken;
   final String refreshToken;
-  AuthResult({required this.user, required this.accessToken, required this.refreshToken});
+  AuthResult(
+      {required this.user,
+      required this.accessToken,
+      required this.refreshToken});
 }
 
 abstract class AuthRemoteDataSource {
   Future<AuthResult> login({required String email, required String password});
-  Future<AuthResult> register({required String email, required String password});
+  Future<AuthResult> register(
+      {required String email, required String password});
 
   /// Simule un endpoint `/refresh`. ReqRes n'a pas de vrai refresh token :
   /// pour la démo, on ré-authentifie silencieusement avec les identifiants
@@ -27,7 +31,8 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   AuthRemoteDataSourceImpl(this.dio);
 
   @override
-  Future<AuthResult> login({required String email, required String password}) async {
+  Future<AuthResult> login(
+      {required String email, required String password}) async {
     try {
       final response = await dio.post(
         ApiConstants.loginEndpoint,
@@ -47,7 +52,8 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   }
 
   @override
-  Future<AuthResult> register({required String email, required String password}) async {
+  Future<AuthResult> register(
+      {required String email, required String password}) async {
     try {
       final response = await dio.post(
         ApiConstants.registerEndpoint,

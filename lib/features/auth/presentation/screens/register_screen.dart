@@ -39,7 +39,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 const SizedBox(height: 16),
                 TextFormField(
                   controller: _emailController,
-                  decoration:  InputDecoration(
+                  decoration: InputDecoration(
                       labelText: strings.email,
                       border: const OutlineInputBorder()),
                   validator: (v) => (v == null || !v.contains('@'))
@@ -50,7 +50,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 TextFormField(
                   controller: _passwordController,
                   obscureText: true,
-                    decoration: InputDecoration(
+                  decoration: InputDecoration(
                       labelText: strings.password,
                       border: const OutlineInputBorder()),
                   validator: (v) => (v == null || v.length < 4)

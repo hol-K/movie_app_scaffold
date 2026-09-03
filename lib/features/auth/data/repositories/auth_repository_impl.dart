@@ -10,12 +10,15 @@ class AuthRepositoryImpl implements AuthRepository {
   final AuthRemoteDataSource remoteDataSource;
   final AuthLocalDataSource localDataSource;
 
-  AuthRepositoryImpl({required this.remoteDataSource, required this.localDataSource});
+  AuthRepositoryImpl(
+      {required this.remoteDataSource, required this.localDataSource});
 
   @override
-  Future<Either<Failure, User>> login({required String email, required String password}) async {
+  Future<Either<Failure, User>> login(
+      {required String email, required String password}) async {
     try {
-      final result = await remoteDataSource.login(email: email, password: password);
+      final result =
+          await remoteDataSource.login(email: email, password: password);
       await localDataSource.saveSession(
         user: result.user,
         accessToken: result.accessToken,
@@ -34,9 +37,11 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<Either<Failure, User>> register({required String email, required String password}) async {
+  Future<Either<Failure, User>> register(
+      {required String email, required String password}) async {
     try {
-      final result = await remoteDataSource.register(email: email, password: password);
+      final result =
+          await remoteDataSource.register(email: email, password: password);
       await localDataSource.saveSession(
         user: result.user,
         accessToken: result.accessToken,
