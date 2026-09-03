@@ -19,7 +19,8 @@ Future<void> main() async {
 
 class MyApp extends StatelessWidget {
   final AppDependencies deps;
-  const MyApp({super.key, required this.deps});
+  final Locale? locale;
+  const MyApp({super.key, required this.deps, this.locale});
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
             create: (_) => AuthProvider(deps.authRepository)),
       ],
       child: MaterialApp(
+        locale: locale,
         onGenerateTitle: (context) => AppLocalizations.of(context).appTitle,
         debugShowCheckedModeBanner: false,
         localizationsDelegates: const [

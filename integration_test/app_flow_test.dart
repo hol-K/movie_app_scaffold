@@ -33,18 +33,21 @@ void main() {
   );
 
   testWidgets('starts on the login screen', (tester) async {
-    await tester.pumpWidget(MyApp(deps: dependencies));
+    await tester
+        .pumpWidget(MyApp(deps: dependencies, locale: const Locale('fr')));
     await tester.pumpAndSettle();
     expect(find.text('MovieApp'), findsOneWidget);
+    expect(find.byType(FilledButton), findsOneWidget);
     expect(find.text('Se connecter'), findsOneWidget);
   });
 
   testWidgets('shows validation feedback during the login flow',
       (tester) async {
-    await tester.pumpWidget(MyApp(deps: dependencies));
+    await tester
+        .pumpWidget(MyApp(deps: dependencies, locale: const Locale('fr')));
     await tester.pumpAndSettle();
     await tester.enterText(find.byType(TextFormField).first, 'bad');
-    await tester.tap(find.text('Se connecter'));
+    await tester.tap(find.byType(FilledButton));
     await tester.pumpAndSettle();
     expect(find.text('Email invalide'), findsOneWidget);
   });
