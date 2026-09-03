@@ -21,7 +21,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: stable
-          flutter-version: "3.29.2"
+          flutter-version: "3.32.0"
           cache: true
 
       - name: Install dependencies
@@ -48,7 +48,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: stable
-          flutter-version: "3.29.2"
+          flutter-version: "3.32.0"
           cache: true
 
       - name: Install ChromeDriver
@@ -80,7 +80,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: stable
-          flutter-version: "3.29.2"
+          flutter-version: "3.32.0"
           cache: true
 
       - name: Install dependencies
@@ -107,7 +107,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: stable
-          flutter-version: "3.29.2"
+          flutter-version: "3.32.0"
           cache: true
 
       - name: Install dependencies
