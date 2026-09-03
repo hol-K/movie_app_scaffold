@@ -54,15 +54,19 @@ jobs:
       - name: Install ChromeDriver
         run: |
           sudo apt-get update
-          sudo apt-get install -y chromium-chromedriver
+          sudo apt-get install -y chromium-chromedriver xvfb
 
       - name: Install dependencies
         run: flutter pub get
 
       - name: Run integration tests
         run: |
-          chromedriver --port=4444 &
-          flutter drive --driver=test_driver/integration_test.dart --target=integration_test/app_flow_test.dart -d chrome
+          xvfb-run --auto-servernum --server-args='-screen 0 1920x1080x24' bash -c '
+            chromedriver --port=4444 &
+            driver_pid=$!
+            trap "kill $driver_pid" EXIT
+            flutter drive --driver=test_driver/integration_test.dart --target=integration_test/app_flow_test.dart -d chrome
+          '
 
   android:
     name: Build Android APK
