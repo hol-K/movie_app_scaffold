@@ -8,6 +8,7 @@ import 'core/storage/token_storage.dart';
 import 'features/auth/data/datasources/auth_local_data_source.dart';
 import 'features/auth/data/datasources/auth_remote_data_source.dart';
 import 'features/auth/data/repositories/auth_repository_impl.dart';
+import 'features/auth/domain/repositories/auth_repository.dart';
 import 'features/movies/data/datasources/movie_local_data_source.dart';
 import 'features/movies/data/datasources/movie_remote_data_source.dart';
 import 'features/movies/data/repositories/movie_repository_impl.dart';
@@ -17,10 +18,11 @@ import 'features/movies/domain/repositories/movie_repository.dart';
 /// C'est le seul endroit du projet qui "connaît" toutes les couches à la
 /// fois — exactement le rôle d'une composition root en Clean Architecture.
 class AppDependencies {
-  final AuthRepositoryImpl authRepository;
+  final AuthRepository authRepository;
   final MovieRepository movieRepository;
 
-  AppDependencies({required this.authRepository, required this.movieRepository});
+  AppDependencies(
+      {required this.authRepository, required this.movieRepository});
 
   factory AppDependencies.build() {
     // --- Stockage ---
@@ -53,6 +55,7 @@ class AppDependencies {
       networkInfo: networkInfo,
     );
 
-    return AppDependencies(authRepository: authRepository, movieRepository: movieRepository);
+    return AppDependencies(
+        authRepository: authRepository, movieRepository: movieRepository);
   }
 }

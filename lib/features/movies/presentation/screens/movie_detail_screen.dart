@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/localization/app_localizations.dart';
 import '../../domain/entities/movie.dart';
 
 class MovieDetailScreen extends StatelessWidget {
@@ -7,6 +8,7 @@ class MovieDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final strings = AppLocalizations.of(context);
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -16,7 +18,16 @@ class MovieDetailScreen extends StatelessWidget {
             flexibleSpace: FlexibleSpaceBar(
               background: movie.posterUrl.isEmpty
                   ? const ColoredBox(color: Colors.black26)
-                  : Image.network(movie.posterUrl, fit: BoxFit.cover),
+                  : Semantics(
+                      label: 'Affiche du film ${movie.title}',
+                      image: true,
+                      child: Image.network(
+                        movie.posterUrl,
+                        fit: BoxFit.cover,
+                        cacheWidth: 800,
+                        cacheHeight: 640,
+                      ),
+                    ),
             ),
           ),
           SliverToBoxAdapter(
@@ -25,7 +36,8 @@ class MovieDetailScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(movie.title, style: Theme.of(context).textTheme.headlineSmall),
+                  Text(movie.title,
+                      style: Theme.of(context).textTheme.headlineSmall),
                   const SizedBox(height: 8),
                   Row(
                     children: [
@@ -38,7 +50,9 @@ class MovieDetailScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    movie.overview.isEmpty ? 'Pas de synopsis disponible.' : movie.overview,
+                    movie.overview.isEmpty
+                        ? strings.noOverview
+                        : movie.overview,
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                 ],

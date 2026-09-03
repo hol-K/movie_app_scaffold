@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../../../core/localization/app_localizations.dart';
 import '../providers/movie_provider.dart';
 import '../widgets/movie_card.dart';
 
@@ -26,6 +27,7 @@ class _MovieListViewState extends State<MovieListView> {
   @override
   Widget build(BuildContext context) {
     final provider = context.watch<MovieProvider>();
+    final strings = AppLocalizations.of(context);
 
     return RefreshIndicator(
       onRefresh: () => context.read<MovieProvider>().load(),
@@ -36,26 +38,27 @@ class _MovieListViewState extends State<MovieListView> {
               width: double.infinity,
               color: Colors.orange.shade100,
               padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-              child: const Row(
+              child: Row(
                 children: [
-                  Icon(Icons.wifi_off, size: 16, color: Colors.orange),
-                  SizedBox(width: 8),
+                  const Icon(Icons.wifi_off, size: 16, color: Colors.orange),
+                  const SizedBox(width: 8),
                   Expanded(
                     child: Text(
-                      'Mode hors-ligne — données en cache',
-                      style: TextStyle(color: Colors.deepOrange, fontSize: 12),
+                      strings.offline,
+                      style: const TextStyle(
+                          color: Colors.deepOrange, fontSize: 12),
                     ),
                   ),
                 ],
               ),
             ),
-          Expanded(child: _buildBody(provider)),
+          Expanded(child: _buildBody(provider, strings)),
         ],
       ),
     );
   }
 
-  Widget _buildBody(MovieProvider provider) {
+  Widget _buildBody(MovieProvider provider, AppLocalizations strings) {
     switch (provider.state) {
       case ViewState.initial:
       case ViewState.loading:
@@ -71,7 +74,7 @@ class _MovieListViewState extends State<MovieListView> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24),
               child: Text(
-                provider.errorMessage ?? 'Une erreur est survenue',
+                provider.errorMessage ?? strings.retry,
                 textAlign: TextAlign.center,
               ),
             ),
@@ -79,14 +82,14 @@ class _MovieListViewState extends State<MovieListView> {
             Center(
               child: OutlinedButton(
                 onPressed: provider.load,
-                child: const Text('Réessayer'),
+                child: Text(strings.retry),
               ),
             ),
           ],
         );
       case ViewState.loaded:
         if (provider.movies.isEmpty) {
-          return const Center(child: Text('Aucun film trouvé.'));
+          return Center(child: Text(strings.noMovies));
         }
         return ListView.builder(
           itemCount: provider.movies.length,

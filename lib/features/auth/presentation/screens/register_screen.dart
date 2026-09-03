@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../../../core/localization/app_localizations.dart';
 import '../providers/auth_provider.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -17,9 +18,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     final auth = context.watch<AuthProvider>();
+    final strings = AppLocalizations.of(context);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Créer un compte')),
+      appBar: AppBar(title: Text(strings.register)),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(24),
@@ -37,19 +39,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 const SizedBox(height: 16),
                 TextFormField(
                   controller: _emailController,
-                  decoration: const InputDecoration(
-                      labelText: 'Email', border: OutlineInputBorder()),
-                  validator: (v) =>
-                      (v == null || !v.contains('@')) ? 'Email invalide' : null,
+                  decoration:  InputDecoration(
+                      labelText: strings.email,
+                      border: const OutlineInputBorder()),
+                  validator: (v) => (v == null || !v.contains('@'))
+                      ? strings.invalidEmail
+                      : null,
                 ),
                 const SizedBox(height: 16),
                 TextFormField(
                   controller: _passwordController,
                   obscureText: true,
-                  decoration: const InputDecoration(
-                      labelText: 'Mot de passe', border: OutlineInputBorder()),
-                  validator: (v) =>
-                      (v == null || v.length < 4) ? 'Trop court' : null,
+                    decoration: InputDecoration(
+                      labelText: strings.password,
+                      border: const OutlineInputBorder()),
+                  validator: (v) => (v == null || v.length < 4)
+                      ? strings.passwordTooShort
+                      : null,
                 ),
                 const SizedBox(height: 24),
                 if (auth.errorMessage != null)
@@ -66,7 +72,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           height: 18,
                           width: 18,
                           child: CircularProgressIndicator(strokeWidth: 2))
-                      : const Text("S'inscrire"),
+                      : Text(strings.register),
                 ),
               ],
             ),
