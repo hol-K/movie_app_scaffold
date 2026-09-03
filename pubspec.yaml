@@ -1,0 +1,46 @@
+name: movie_app
+description: >
+  Application Flutter full-stack (Clean Architecture) — authentification JWT,
+  consommation d'API REST (TMDB + ReqRes), cache local Hive, mode hors-ligne.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Réseau
+  dio: ^5.4.3
+
+  # State management (léger, pas de génération de code)
+  provider: ^6.1.2
+
+  # Persistance locale / cache offline
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  path_provider: ^2.1.3
+
+  # Stockage sécurisé des tokens (access + refresh)
+  flutter_secure_storage: ^9.2.2
+
+  # Détection de connectivité réseau (mode hors-ligne)
+  connectivity_plus: ^6.0.3
+
+  # Value equality pour les entités du domaine
+  equatable: ^2.0.5
+
+  cupertino_icons: ^1.0.6
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+  # Tests unitaires — mocks de la couche data pour tester les repositories
+  mocktail: ^1.0.3
+
+flutter:
+  uses-material-design: true

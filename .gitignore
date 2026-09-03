@@ -1,0 +1,19 @@
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+build/
+ios/Pods/
+ios/.symlinks/
+android/.gradle/
+*.iml
+.idea/
+.vscode/
+.DS_Store
+
+# Secrets — ne jamais committer de vraies clés API
+.env
+*.env.local
+*.local.json
+run.sh
+run.ps1
